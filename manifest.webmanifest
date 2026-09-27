@@ -1,11 +1,11 @@
 {
-  "name": "妆程",
+  "name": "十安轻奢妆造 · 妆程",
   "short_name": "妆程",
-  "description": "化妆师预约、客户、路线与收款管理",
+  "description": "十安轻奢妆造预约、客户、路线与收款管理",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#FAF6F3",
-  "theme_color": "#4B2531",
+  "background_color": "#F8F5FF",
+  "theme_color": "#5B2D88",
   "icons": [
     {
       "src": "./app-icon-192.png",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zhuangcheng-shell-v2'
+const CACHE_NAME = 'zhuangcheng-shell-v3'
 const BASE_URL = new URL('./', self.location.href)
 const assetUrl = (path) => new URL(path, BASE_URL).href
 const CORE_ASSETS = [
