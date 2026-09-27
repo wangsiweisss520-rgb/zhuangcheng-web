@@ -1,5 +1,5 @@
-const CACHE_NAME = 'zhuangcheng-shell-v6'
-const RUNTIME_CACHE = 'zhuangcheng-runtime-v4'
+const CACHE_NAME = 'zhuangcheng-shell-v7'
+const RUNTIME_CACHE = 'zhuangcheng-runtime-v5'
 const BASE_URL = new URL('./', self.location.href)
 const assetUrl = (path) => new URL(path, BASE_URL).href
 const CORE_ASSETS = [
@@ -30,6 +30,19 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return
+
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).then((response) => {
+        if (response.ok) {
+          const copy = response.clone()
+          caches.open(RUNTIME_CACHE).then((cache) => cache.put(event.request, copy))
+        }
+        return response
+      }).catch(() => caches.match(event.request).then((cached) => cached ?? caches.match(assetUrl('index.html')))),
+    )
+    return
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
