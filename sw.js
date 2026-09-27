@@ -1,4 +1,5 @@
-const CACHE_NAME = 'zhuangcheng-shell-v3'
+const CACHE_NAME = 'zhuangcheng-shell-v4'
+const RUNTIME_CACHE = 'zhuangcheng-runtime-v2'
 const BASE_URL = new URL('./', self.location.href)
 const assetUrl = (path) => new URL(path, BASE_URL).href
 const CORE_ASSETS = [
@@ -20,7 +21,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
       keys
-        .filter((key) => key.startsWith('zhuangcheng-') && key !== CACHE_NAME && key !== 'zhuangcheng-runtime-v1')
+        .filter((key) => key.startsWith('zhuangcheng-') && key !== CACHE_NAME && key !== RUNTIME_CACHE)
         .map((key) => caches.delete(key)),
     )),
   )
@@ -36,7 +37,7 @@ self.addEventListener('fetch', (event) => {
       return fetch(event.request).then((response) => {
         if (response.ok) {
           const copy = response.clone()
-          caches.open('zhuangcheng-runtime-v1').then((cache) => cache.put(event.request, copy))
+          caches.open(RUNTIME_CACHE).then((cache) => cache.put(event.request, copy))
         }
         return response
       }).catch(() => caches.match(assetUrl('index.html')))
