@@ -1,0 +1,23 @@
+{
+  "name": "妆程",
+  "short_name": "妆程",
+  "description": "化妆师预约、客户、路线与收款管理",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FAF6F3",
+  "theme_color": "#4B2531",
+  "icons": [
+    {
+      "src": "./app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
