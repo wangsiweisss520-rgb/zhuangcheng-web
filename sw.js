@@ -1,5 +1,5 @@
-const CACHE_NAME = 'zhuangcheng-shell-v10'
-const RUNTIME_CACHE = 'zhuangcheng-runtime-v8'
+const CACHE_NAME = 'zhuangcheng-shell-v11'
+const RUNTIME_CACHE = 'zhuangcheng-runtime-v9'
 const BASE_URL = new URL('./', self.location.href)
 const assetUrl = (path) => new URL(path, BASE_URL).href
 const CORE_ASSETS = [
@@ -19,13 +19,15 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
-      keys
-        .filter((key) => key.startsWith('zhuangcheng-') && key !== CACHE_NAME && key !== RUNTIME_CACHE)
-        .map((key) => caches.delete(key)),
-    )),
+    Promise.all([
+      caches.keys().then((keys) => Promise.all(
+        keys
+          .filter((key) => key.startsWith('zhuangcheng-') && key !== CACHE_NAME && key !== RUNTIME_CACHE)
+          .map((key) => caches.delete(key)),
+      )),
+      self.clients.claim(),
+    ]),
   )
-  self.clients.claim()
 })
 
 self.addEventListener('fetch', (event) => {
@@ -33,7 +35,7 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).then((response) => {
+      fetch(new Request(event.request, { cache: 'no-store' })).then((response) => {
         if (response.ok) {
           const copy = response.clone()
           caches.open(RUNTIME_CACHE).then((cache) => cache.put(event.request, copy))
