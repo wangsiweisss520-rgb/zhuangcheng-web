@@ -1,5 +1,5 @@
-const CACHE_NAME = 'zhuangcheng-shell-v9'
-const RUNTIME_CACHE = 'zhuangcheng-runtime-v7'
+const CACHE_NAME = 'zhuangcheng-shell-v10'
+const RUNTIME_CACHE = 'zhuangcheng-runtime-v8'
 const BASE_URL = new URL('./', self.location.href)
 const assetUrl = (path) => new URL(path, BASE_URL).href
 const CORE_ASSETS = [
